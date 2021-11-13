@@ -10,7 +10,7 @@ export class Read extends React.Component {
     };
 
     componentDidMount() {
-        axios.get('https://jsonblob.com/api/jsonblob/894944504570986496')
+        axios.get('http://localhost:4000/api/movies')
         .then(
             (response) => {
                 this.setState({ movies: response.data.movies })
