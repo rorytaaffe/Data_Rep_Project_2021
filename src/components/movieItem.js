@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card'; // importing the card style
+import {Link} from 'react-router-dom';
 
 // 'export' means we can export this component
 export class MovieItem extends React.Component {
@@ -18,6 +19,7 @@ export class MovieItem extends React.Component {
                             </footer>
                         </blockquote>
                     </Card.Body>
+                    <Link to={"/edit/" + this.props.movie._id} className="btn btn-primary">Edit</Link>
                 </Card>
             </div>
         );
