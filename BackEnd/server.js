@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 4000
+const port = 4000   // localhost:4000
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
@@ -26,7 +26,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-const myConnectionString = 'mongodb+srv://admin:remote@cluster0.zahum.mongodb.net/movies?retryWrites=true&w=majority';
+const myConnectionString = 'mongodb+srv://admin:remote@cluster0.cl8jn.mongodb.net/players?retryWrites=true&w=majority';
+
 main().catch(err => console.log(err));
 
 async function main() {
@@ -35,93 +36,63 @@ async function main() {
 
 const Schema = mongoose.Schema;
 
-var movieSchema = new Schema({
-    title:String,
-    year:String,
-    poster:String
+var playerSchema = new Schema({
+    name:String,
+    age:String,
+    picture:String
 });
 
-var MovieModel = mongoose.model("movie", movieSchema);
+var PlayerModel = mongoose.model("player", playerSchema);
 
+// gets the data
+app.get('/api/players', (req, res) => {
 
-app.get('/api/movies', (req, res) => {
-
-    // const mymovies = [
-    //     {
-    //         "Title": "Avengers: Infinity War",
-    //         "Year": "2018",
-    //         "imdbID": "tt4154756",
-    //         "Type": "movie",
-    //         "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-    //     },
-    //     {
-    //         "Title": "Captain America: Civil War",
-    //         "Year": "2016",
-    //         "imdbID": "tt3498820",
-    //         "Type": "movie",
-    //         "Poster": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
-    //     },
-    //     {
-    //         "Title": "World War Z",
-    //         "Year": "2013",
-    //         "imdbID": "tt0816711",
-    //         "Type": "movie",
-    //         "Poster": "https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"
-    //     }
-    //     , {
-    //         "Title": "War of the Worlds",
-    //         "Year": "2005",
-    //         "imdbID": "tt0407304",
-    //         "Type": "movie",
-    //         "Poster": "https://m.media-amazon.com/images/M/MV5BNDUyODAzNDI1Nl5BMl5BanBnXkFtZTcwMDA2NDAzMw@@._V1_SX300.jpg"
-    //     }
-    // ];
-
-    MovieModel.find((err, data)=>{
+    PlayerModel.find((err, data)=>{
         res.json(data);
     })
 
-    // res.status(200).json({
-    //     message: "Everything is ok",
-    //     movies:mymovies});
 })
 
-app.get('/api/movies/:id', (req, res)=>{
+
+app.get('/api/players/:id', (req, res)=>{
     console.log(req.params.id);
 
-    MovieModel.findById(req.params.id, (err, data) =>{
+    PlayerModel.findById(req.params.id, (err, data) =>{
         res.json(data);
     })
 })
 
-app.put('/api/movies/:id', (req, res)=>{
-    console.log("Update Movie: " + req.params.id);
+
+app.put('/api/players/:id', (req, res)=>{
+    console.log("Update Player: " + req.params.id);
     console.log(req.body);
 
-    MovieModel.findByIdAndUpdate(req.params.id.body, {new:true},
+    PlayerModel.findByIdAndUpdate(req.params.id.body, {new:true},
         (err,data)=>{
             res.send(data);
         })
 })
 
-app.delete('/api/movies/:id',(req,res)=>{
-    console.log("Delete Movie: " + req.params.id);
 
-    MovieModel.findByIdAndDelete(req.params.id,(err, data)=>{
+app.delete('/api/players/:id',(req,res)=>{
+    console.log("Delete Player: " + req.params.id);
+
+    PlayerModel.findByIdAndDelete(req.params.id,(err, data)=>{
         res.send(data);
     })
 })
 
-app.post('/api/movies', (req, res)=>{
-    console.log('Movie Received!');
-    console.log(req.body.title);
-    console.log(req.body.year);
-    console.log(req.body.poster);
 
-    MovieModel.create({
-        title:req.body.title,
-        year:req.body.year,
-        poster:req.body.poster
+app.post('/api/players', (req, res)=>{
+    console.log('Player Received!');
+    console.log(req.body.name);
+    console.log(req.body.age);
+    console.log(req.body.picture);
+
+    PlayerModel.create({
+        name:req.body.name,
+        age:req.body.age,
+        picture:req.body.picture
     })
 
     res.send('Item Added')

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Movies } from './movies'; // imported Movies component
+import { Players } from './players'; // imported Players component
 import axios from 'axios';
 
 // 'export' means we can export this component
-export class Read extends React.Component {
+export class Soccer extends React.Component {
 
     constructor(){
         super();
@@ -12,14 +12,14 @@ export class Read extends React.Component {
     }
 
     state = {
-        movies: []
+        players: []
     };
 
     componentDidMount() {
-        axios.get('http://localhost:4000/api/movies')
+        axios.get('http://localhost:4000/api/players')
         .then(
             (response) => {
-                this.setState({ movies: response.data })
+                this.setState({ players: response.data })
             }
         )
         .catch(
@@ -30,10 +30,10 @@ export class Read extends React.Component {
     }
 
     ReloadData(){
-        axios.get('http://localhost:4000/api/movies')
+        axios.get('http://localhost:4000/api/players')
         .then(
             (response) => {
-                this.setState({ movies: response.data })
+                this.setState({ players: response.data })
             }
         )
         .catch(
@@ -46,8 +46,8 @@ export class Read extends React.Component {
     render() {
         return (
             <div>
-                <h1>This is the Read Component.</h1>
-                <Movies movie={this.state.movies} ReloadData = {this.ReloadData}></Movies>
+                <h1>These are the Greats</h1>
+                <Players player={this.state.players} ReloadData = {this.ReloadData}></Players> 
             </div>
         );
     }

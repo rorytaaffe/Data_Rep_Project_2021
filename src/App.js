@@ -9,9 +9,9 @@ import { Navbar, Nav } from 'react-bootstrap'; // allows us to use the Navbar
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';  // BrowserRouter as Router , whenever we want to use BrowserRouter we can write Router 
 
-import { Read } from './components/read'; // import components
-import { Create } from './components/create';
-import { Edit } from './components/edit';
+import { Soccer } from './components/soccer'; // import components
+import { New } from './components/new';
+import { Change } from './components/change';
 
 // Changed from Function to Class, and added extends Component to turn it into a component
 class App extends Component {
@@ -23,21 +23,21 @@ class App extends Component {
       <Router>
         <div className="App">
 
-          <Navbar bg="primary" variant="dark">
+          <Navbar bg="dark" variant="dark">
             <Navbar.Brand href="#home">Navbar</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/read">Read</Nav.Link>
-              <Nav.Link href="/create">Create</Nav.Link>
+              <Nav.Link href="/soccer">Soccer</Nav.Link>
+              <Nav.Link href="/new">New</Nav.Link>
             </Nav>
           </Navbar>
 
           <br></br>
           <Switch>
             <Route path='/' component={Content} exact />
-            <Route path='/create' component={Create}  />
-            <Route path='/read' component={Read}  />
-            <Route path='/edit/:id' component={Edit}></Route>
+            <Route path='/new' component={New}  />
+            <Route path='/soccer' component={Soccer}  />
+            <Route path='/change/:id' component={Change}></Route>
           </Switch>
         </div>
       </Router>
